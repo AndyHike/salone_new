@@ -1,8 +1,0 @@
-{
-  "buildCommand": "pnpm run build",
-  "installCommand": "pnpm install --no-frozen-lockfile",
-  "outputDirectory": ".next",
-  "env": {
-    "NODE_OPTIONS": "--max_old_space_size=4096"
-  }
-}
