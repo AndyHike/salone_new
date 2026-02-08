@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  directus:
+    image: directus:latest
+    container_name: directus
+    ports:
+      - "8055:8055"
+    environment:
+      KEY: your_secret_key_here
+      SECRET: your_secret_here
+      DB_CLIENT: sqlite3
+      DB_FILENAME: /directus/database.sqlite
+      ADMIN_EMAIL: admin@example.com
+      ADMIN_PASSWORD: admin
+      PUBLIC_URL: http://localhost:8055
+    volumes:
+      - directus_data:/directus/database
+      - directus_uploads:/directus/uploads
+    networks:
+      - salon_network
+
+  app:
+    build: .
+    container_name: salon_app
+    ports:
+      - "3000:3000"
+    environment:
+      NEXT_PUBLIC_DIRECTUS_URL: http://directus:8055
+      DIRECTUS_API_TOKEN: ${DIRECTUS_API_TOKEN}
+      DIRECTUS_URL: http://directus:8055
+    depends_on:
+      - directus
+    networks:
+      - salon_network
+    restart: unless-stopped
+
+volumes:
+  directus_data:
+  directus_uploads:
+
+networks:
+  salon_network:
+    driver: bridge
