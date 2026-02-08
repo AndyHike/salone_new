@@ -1,6 +1,6 @@
 {
   "buildCommand": "pnpm run build",
-  "installCommand": "pnpm install --prefer-offline --no-audit",
+  "installCommand": "pnpm install --prefer-offline",
   "outputDirectory": ".next",
   "env": {
     "NODE_OPTIONS": "--max_old_space_size=4096"
